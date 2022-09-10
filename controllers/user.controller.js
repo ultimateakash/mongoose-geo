@@ -1,4 +1,4 @@
-const User = require("../models/user.model");
+const User = require('../models/user.model');
 
 exports.nearByUsersExample1 = async (req, res) => {
     const latitude = 28.626137;
@@ -49,42 +49,42 @@ exports.nearByUsersExample2 = async (req, res) => {
 exports.dummyData = async (req, res) => {
     const users = await User.insertMany([
         {
-            name: "User 1",
+            name: 'User 1',
             location: {
                 type: 'Point',
                 coordinates: [79.821602, 28.626137]
             }
         },
         {
-            name: "User 2",
+            name: 'User 2',
             location: {
                 type: 'Point',
                 coordinates: [79.821091, 28.625484]
             }
         },
         {
-            name: "User 3",
+            name: 'User 3',
             location: {
                 type: 'Point',
                 coordinates: [79.817924, 28.625294]
             }
         },
         {
-            name: "User 4",
+            name: 'User 4',
             location: {
                 type: 'Point',
                 coordinates: [79.814636, 28.625181]
             }
         },
         {
-            name: "User 5",
+            name: 'User 5',
             location: {
                 type: 'Point',
                 coordinates: [79.810135, 28.625044]
             }
         },
         {
-            name: "User 6",
+            name: 'User 6',
             location: {
                 type: 'Point',
                 coordinates: [79.808296, 28.625019]
