@@ -5,7 +5,7 @@ exports.nearByUsersExample1 = async (req, res) => {
     const longitude = 79.821602;
     const distance = 1;
     const unitValue = 1000;
-    
+
     const users = await User.aggregate([
         {
             $geoNear: {
@@ -13,17 +13,17 @@ exports.nearByUsersExample1 = async (req, res) => {
                     type: 'Point',
                     coordinates: [longitude, latitude]
                 },
-                query: { 
-                    status: true 
+                query: {
+                    status: true
                 },
-                maxDistance: distance * unitValue,
+                maxDistance: distance * unitValue, // distance in meters
                 distanceField: 'distance',
                 distanceMultiplier: 1 / unitValue
             }
         },
         {
             $project: {
-                _id: 1, 
+                _id: 1,
                 distance: 1
             }
         },
@@ -45,7 +45,29 @@ exports.nearByUsersExample2 = async (req, res) => {
     const users = await User.findByDistance(longitude, latitude, distance);
     return res.json(users)
 }
- 
+
+exports.nearByUsersExample3 = async (req, res) => {
+    const latitude = 28.626137;
+    const longitude = 79.821602;
+    const distance = 1;
+    const unitValue = 1000;
+
+    // $near sorts documents by distance
+    const users = await User.find({
+        location: {
+            $near: {
+                $maxDistance: distance * unitValue, // distance in meters
+                $geometry: {
+                    type: 'Point',
+                    coordinates: [longitude, latitude]
+                }
+            }
+        }
+    })
+    .select('_id')
+    return res.json(users)
+}
+
 exports.dummyData = async (req, res) => {
     const users = await User.insertMany([
         {
@@ -89,7 +111,7 @@ exports.dummyData = async (req, res) => {
                 type: 'Point',
                 coordinates: [79.808296, 28.625019]
             }
-        } 
+        }
     ]);
     return res.json(users);
 } 

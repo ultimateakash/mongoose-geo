@@ -34,7 +34,7 @@ UserSchema.static('findByDistance', function(longitude, latitude, distance, unit
                     coordinates: [longitude, latitude]
                 },
                 query: { status: true },
-                maxDistance: distance * unitValue, 
+                maxDistance: distance * unitValue, // distance in meters
                 distanceField: 'distance',
                 distanceMultiplier: 1 / unitValue
             }
